@@ -1,6 +1,6 @@
 # Simple Shopping List
 
-A Shipping List Developed with Flutter.
+A Shopping List Developed with Flutter.
 
 ## Getting Started
 

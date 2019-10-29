@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shopping_list/components/product_list.dart';
+import 'package:shopping_list/providers/ProductCollection.dart';
+import 'package:shopping_list/providers/ShoppingItemCollection.dart';
 import '../routes.dart';
 import '../components/drawer.dart';
 
@@ -7,31 +11,37 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final title = 'Family Shopping List';
 
-    return new MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.pink,
-      ),
-      title: title,
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text(title),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(builder: (context) => ProductCollection()),
+        ChangeNotifierProvider(builder: (context) => ShoppingItemCollection())
+      ],
+      child: MaterialApp(
+        theme: ThemeData(
+          primarySwatch: Colors.pink,
         ),
-        drawer: AppDrawer(),
-        body: Container(
-          child: Container(
-            child: Text('Family Shopping List'),
+        title: title,
+        home: Scaffold(
+          appBar: AppBar(
+            title: Text(title),
+          ),
+          drawer: AppDrawer(),
+          body: Container(
+            child: Container(
+              child: ProductList(),
+            ),
           ),
         ),
+        onGenerateRoute: (RouteSettings settings) {
+          return MaterialPageRoute(
+            builder: (BuildContext context) => generetaRoute(
+                context: context,
+                name: settings.name,
+                arguments: settings.arguments),
+          );
+        },
+        debugShowCheckedModeBanner: false,
       ),
-      onGenerateRoute: (RouteSettings settings) {
-        return MaterialPageRoute(
-          builder: (BuildContext context) => generetaRoute(
-              context: context,
-              name: settings.name,
-              arguments: settings.arguments),
-        );
-      },
-      debugShowCheckedModeBanner: false,
     );
   }
 }

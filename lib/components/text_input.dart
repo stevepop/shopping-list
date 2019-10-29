@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import '../models/product.dart';
+import 'package:provider/provider.dart';
+import 'package:shopping_list/models/Product.dart';
+
+import 'package:shopping_list/providers/ProductCollection.dart';
 
 class TextInput extends StatefulWidget {
-  final List<Product> items;
-  final Function addProductItem;
-
-  TextInput({this.items, this.addProductItem});
-
   @override
   State<StatefulWidget> createState() => TextInputState();
 }
@@ -16,6 +14,7 @@ class TextInputState extends State<TextInput> {
   final TextEditingController _textController = new TextEditingController();
 
   void _handleSubmitted(String text) {
+    Provider.of<ProductCollection>(context).addProduct(Product(text, false));
     _textController.clear();
 
     setState(() {
@@ -25,35 +24,38 @@ class TextInputState extends State<TextInput> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(color: Theme.of(context).cardColor),
-      margin: EdgeInsets.symmetric(horizontal: 8.0),
-      child: Row(
-        children: <Widget>[
-          Flexible(
-            child: TextField(
-              controller: _textController,
-              onChanged: (String text) {
-                setState(() {
-                  _isComposing = text.length > 0;
-                });
-              },
-              onSubmitted: _handleSubmitted,
-              decoration: InputDecoration.collapsed(hintText: "Add Item"),
+    return Consumer<ProductCollection>(builder: (context, products, child) {
+      return Container(
+        decoration: BoxDecoration(color: Theme.of(context).cardColor),
+        margin: EdgeInsets.symmetric(horizontal: 8.0),
+        child: Row(
+          children: <Widget>[
+            Flexible(
+              child: TextField(
+                controller: _textController,
+                onChanged: (String text) {
+                  setState(() {
+                    _isComposing = text.length > 0;
+                  });
+                },
+                onSubmitted: _isComposing ? _handleSubmitted : null,
+                decoration: InputDecoration.collapsed(hintText: "Add Item"),
+              ),
             ),
-          ),
-          Container(
-            margin: new EdgeInsets.symmetric(horizontal: 4.0),
-            child: IconButton(
-              icon: new Icon(Icons.send),
-              onPressed: _isComposing
-                  ? () => widget
-                      .addProductItem(Product(_textController.text, false))
-                  : null,
-            ),
-          )
-        ],
-      ),
-    );
+            Container(
+              margin: new EdgeInsets.symmetric(horizontal: 4.0),
+              child: IconButton(
+                  icon: new Icon(
+                    Icons.send,
+                    color: Colors.red,
+                  ),
+                  onPressed: () => _isComposing
+                      ? _handleSubmitted(_textController.text)
+                      : null),
+            )
+          ],
+        ),
+      );
+    });
   }
 }

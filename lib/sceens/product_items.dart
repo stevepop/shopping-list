@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_list/components/product_list.dart';
+import 'package:shopping_list/components/text_input.dart';
+import 'package:shopping_list/providers/ProductCollection.dart';
 import '../models/product.dart';
 
 class ProductItems extends StatefulWidget {
@@ -10,15 +12,9 @@ class ProductItems extends StatefulWidget {
 }
 
 class ProductItemState extends State<ProductItems> {
-  final List<Product> _items = Product.all;
+  final collection = ProductCollection();
 
   Product shoppingItem;
-
-  addProductItem(Product product) {
-    setState(() {
-      _items.add(product);
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +24,11 @@ class ProductItemState extends State<ProductItems> {
         ),
         body: Column(
           children: <Widget>[
-            ProductList(_items),
+            ProductList(),
             Divider(
               height: 1.0,
             ),
-            // TextInput(items: _items, addProductItem: addProductItem)
+            TextInput()
           ],
         ));
   }

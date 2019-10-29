@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shopping_list/components/shipping_list.dart';
-import 'package:shopping_list/models/shopping.dart';
+import 'package:shopping_list/components/shopping_list.dart';
 
 class ShoppingItems extends StatefulWidget {
   ShoppingItems();
@@ -10,16 +9,6 @@ class ShoppingItems extends StatefulWidget {
 }
 
 class ShoppingItemState extends State<ShoppingItems> {
-  final List<Shopping> _items = Shopping.all;
-
-  Shopping shoppingItem;
-
-  addProductItem(Shopping shopping) {
-    setState(() {
-      _items.add(shopping);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +17,7 @@ class ShoppingItemState extends State<ShoppingItems> {
       ),
       body: Column(
         children: <Widget>[
-          ShoppingList(_items),
+          ShoppingList(),
         ],
       ),
     );

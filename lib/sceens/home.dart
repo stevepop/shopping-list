@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shopping_list/components/product_list.dart';
+import 'package:shopping_list/widgets/product_list.dart';
 import 'package:shopping_list/providers/ProductCollection.dart';
 import 'package:shopping_list/providers/ShoppingItemCollection.dart';
 import '../routes.dart';
-import '../components/drawer.dart';
+import '../widgets/drawer.dart';
 
 class HomeScreen extends StatelessWidget {
   @override

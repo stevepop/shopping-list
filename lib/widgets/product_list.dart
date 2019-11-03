@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:shopping_list/components/text_input.dart';
+import 'package:shopping_list/widgets/text_input.dart';
 import 'package:shopping_list/models/Product.dart';
 import 'package:shopping_list/providers/ProductCollection.dart';
 import 'package:shopping_list/providers/ShoppingItemCollection.dart';

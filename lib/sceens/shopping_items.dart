@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shopping_list/components/shopping_list.dart';
+import 'package:shopping_list/widgets/shopping_list.dart';
 
 class ShoppingItems extends StatefulWidget {
   ShoppingItems();

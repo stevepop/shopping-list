@@ -1,6 +1,19 @@
 class Product {
+  String id;
   String name;
-  bool isChecked;
+  bool isSelected;
 
-  Product(this.name, this.isChecked);
+  Product({this.id, this.name, this.isSelected});
+
+  Product.fromMap(Map snapshot, String id)
+      : id = id ?? '',
+        name = snapshot['name'] ?? '',
+        isSelected = snapshot['is_selected'] ?? '';
+
+  toJson() {
+    return {
+      "name": name,
+      "is_selected": isSelected,
+    };
+  }
 }

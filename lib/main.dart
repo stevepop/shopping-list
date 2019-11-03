@@ -1,4 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shopping_list/sceens/home.dart';
+import 'package:shopping_list/sceens/landing_screen.dart';
 
-void main() => runApp(HomeScreen());
+void main() => runApp(LandingPage());

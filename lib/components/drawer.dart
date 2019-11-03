@@ -15,10 +15,6 @@ class AppDrawer extends StatelessWidget {
     return ListView(
       children: <Widget>[
         ListTile(
-          title: Text('Products'),
-          onTap: () => _navigate(context, '/products'),
-        ),
-        ListTile(
           title: Text('Shopping List'),
           onTap: () => _navigate(context, '/shopping'),
         ),

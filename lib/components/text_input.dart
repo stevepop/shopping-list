@@ -14,7 +14,8 @@ class TextInputState extends State<TextInput> {
   final TextEditingController _textController = new TextEditingController();
 
   void _handleSubmitted(String text) {
-    Provider.of<ProductCollection>(context).addProduct(Product(text, false));
+    Provider.of<ProductCollection>(context)
+        .addProduct(Product(name: text, isSelected: false));
     _textController.clear();
 
     setState(() {

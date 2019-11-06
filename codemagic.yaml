@@ -34,7 +34,7 @@ workflows:
 
         echo "\nListing iOS Directory to confirm the GoogleService-Info.plist is there! "
         ls ios/Runner/
-      - flutter build apk --debug --verbose
+      - flutter build apk --verbose --debug
     publishing:
       email:
         recipients:

@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shopping_list/models/Product.dart';
 import 'package:shopping_list/models/ShoppingItem.dart';
 import 'package:shopping_list/services/api.dart';
 
@@ -26,25 +27,29 @@ class ShoppingItemCollection extends ChangeNotifier {
 
   get allItems => _items;
 
-  void addRemoveItem(String name) {
-    var currentItem = _items.where((shoppingItem) => shoppingItem.name == name);
+  void addRemoveItem(Product product) async {
+    var snapshot = await _api.getDocumentByProductId(product.id);
 
-    if (currentItem.length == 0) {
-      ShoppingItem item = ShoppingItem(name, false);
-      _items.add(item);
+    if (snapshot.documents.isNotEmpty) {
+      var id = snapshot.documents[0].documentID;
+      var doc = snapshot.documents[0].data;
+
+      ShoppingItem shoppingItem = ShoppingItem.fromMap(doc, id);
+
+      _api.removeDocument(shoppingItem.id);
     } else {
-      var item = currentItem.first;
-      _items.remove(item);
+      var doc = {
+        'name': product.name,
+        'product_id': product.id,
+        'is_checked': false
+      };
+      _api.addDocument(doc);
     }
-
-    notifyListeners();
   }
 
-  void toggleCheckItem(name) {
-    var currentItem =
-        _items.where((shoppingItem) => shoppingItem.name == name).first;
-    currentItem.isChecked = !currentItem.isChecked;
+  void toggleCheckItem(ShoppingItem shoppingItem) {
+    shoppingItem.isChecked = !shoppingItem.isChecked;
 
-    notifyListeners();
+    _api.updateDocument(shoppingItem.toJson(), shoppingItem.id);
   }
 }

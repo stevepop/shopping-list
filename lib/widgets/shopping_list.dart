@@ -41,23 +41,23 @@ class ShoppingList extends StatelessWidget {
     });
   }
 
-  Widget _buildListItems(item) {
+  Widget _buildListItems(shoppingItem) {
     return Consumer<ShoppingItemCollection>(builder: (context, items, child) {
       return ListTile(
         title: Row(
           children: <Widget>[
             Expanded(
               child: Text(
-                item.name,
-                style: item.isChecked
+                shoppingItem.name,
+                style: shoppingItem.isChecked
                     ? TextStyle(decoration: TextDecoration.lineThrough)
                     : TextStyle(decoration: TextDecoration.none),
               ),
             ),
             Checkbox(
-                value: item.isChecked ? item.isChecked : false,
+                value: shoppingItem.isChecked ? shoppingItem.isChecked : false,
                 onChanged: (value) {
-                  items.toggleCheckItem(item.name);
+                  items.toggleCheckItem(shoppingItem);
                 })
           ],
         ),

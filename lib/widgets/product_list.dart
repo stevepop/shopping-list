@@ -7,8 +7,6 @@ import 'package:shopping_list/providers/ProductCollection.dart';
 import 'package:shopping_list/providers/ShoppingItemCollection.dart';
 
 class ProductList extends StatelessWidget {
-  ProductList();
-
   @override
   Widget build(BuildContext context) {
     return Consumer<ProductCollection>(
@@ -75,7 +73,7 @@ class ProductList extends StatelessWidget {
                 color: product.isSelected ? Colors.red : Colors.grey,
               ),
               onPressed: () {
-                _updateShopingList(context, items, product);
+                _updateShoppingList(context, items, product);
               },
             )
           ],
@@ -84,11 +82,11 @@ class ProductList extends StatelessWidget {
     });
   }
 
-  _updateShopingList(context, items, product) {
+  _updateShoppingList(context, items, product) {
     final products = Provider.of<ProductCollection>(context);
 
-    products.selectProduct(product.name);
-    items.addRemoveItem(product.name);
+    products.selectProduct(product, product.id);
+    items.addRemoveItem(product);
 
     String message = product.isSelected
         ? 'Added item to shopping list'

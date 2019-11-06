@@ -32,17 +32,12 @@ class ProductCollection extends ChangeNotifier {
   get allProducts => _products;
 
   void addProduct(Product product) {
-    _products.add(product);
-
-    notifyListeners();
+    var doc = {'name': product.name, 'is_selected': false};
+    _api.addDocument(doc);
   }
 
-  void selectProduct(String name) {
-    var currentProduct =
-        _products.where((product) => product.name == name).first;
-
-    currentProduct.isSelected = !currentProduct.isSelected;
-
-    notifyListeners();
+  void selectProduct(Product product, String id) {
+    product.isSelected = !product.isSelected;
+    _api.updateDocument(product.toJson(), id);
   }
 }

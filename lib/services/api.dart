@@ -14,11 +14,15 @@ class Api {
   }
 
   Stream<QuerySnapshot> streamDataCollection() {
-    return ref.snapshots();
+    return ref.orderBy("name").snapshots();
   }
 
   Future<DocumentSnapshot> getDocumentById(String id) {
     return ref.document(id).get();
+  }
+
+  Future<QuerySnapshot> getDocumentByProductId(String productId) {
+    return ref.where('product_id', isEqualTo: productId).getDocuments();
   }
 
   Future<void> removeDocument(String id) {
@@ -33,17 +37,3 @@ class Api {
     return ref.document(id).updateData(data);
   }
 }
-
-// class Document {
-//   final Firestore _dbReference = Firestore.instance;
-
-//   void getData() {
-//     print('Return documents');
-//     _dbReference
-//         .collection("products")
-//         .getDocuments()
-//         .then((QuerySnapshot snapshot) {
-//       snapshot.documents.forEach((f) => print('${f.data}}'));
-//     });
-//   }
-// }

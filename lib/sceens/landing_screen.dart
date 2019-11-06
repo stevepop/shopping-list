@@ -9,6 +9,7 @@ class LandingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Family Shopping App',
       theme: ThemeData(primarySwatch: Colors.pink),
       home: StreamBuilder<FirebaseUser>(
         stream: FirebaseAuth.instance.onAuthStateChanged,

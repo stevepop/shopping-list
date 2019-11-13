@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:shopping_list/widgets/text_input.dart';
 import 'package:shopping_list/models/Product.dart';
 import 'package:shopping_list/providers/ProductCollection.dart';
-import 'package:shopping_list/providers/ShoppingItemCollection.dart';
 
 class ProductList extends StatelessWidget {
   @override
@@ -21,25 +19,17 @@ class ProductList extends StatelessWidget {
                   allProducts = snapshot.data.documents
                       .map((doc) => Product.fromMap(doc.data, doc.documentID))
                       .toList();
-                  return Column(
-                    children: <Widget>[
-                      Flexible(
-                        child: ListView.builder(
-                          padding: EdgeInsets.all(8.0),
-                          itemBuilder: (context, index) {
-                            return Card(
-                              child:
-                                  _buildListItems(context, allProducts[index]),
-                            );
-                          },
-                          itemCount: allProducts.length,
-                        ),
-                      ),
-                      Divider(
-                        height: 1.0,
-                      ),
-                      _buidTextFormInput(context)
-                    ],
+                  return Flexible(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      padding: EdgeInsets.all(8.0),
+                      itemBuilder: (context, index) {
+                        return Card(
+                          child: _buildListItems(context, allProducts[index]),
+                        );
+                      },
+                      itemCount: allProducts.length,
+                    ),
                   );
                 } else {
                   return CircularProgressIndicator();
@@ -50,43 +40,35 @@ class ProductList extends StatelessWidget {
     );
   }
 
-  Widget _buidTextFormInput(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(8.0),
-      child: TextInput(),
+  Widget _buildListItems(context, product) {
+    return ListTile(
+      title: new Row(
+        children: <Widget>[
+          new Expanded(
+            child: new Text(
+              product.name,
+            ),
+          ),
+          IconButton(
+            icon: Icon(
+              Icons.shopping_cart,
+              color: product.isSelected ? Colors.red : Colors.grey,
+            ),
+            onPressed: () {
+              _updateShoppingList(context, product);
+            },
+          )
+        ],
+      ),
     );
   }
 
-  Widget _buildListItems(context, product) {
-    return Consumer<ShoppingItemCollection>(builder: (context, items, child) {
-      return ListTile(
-        title: new Row(
-          children: <Widget>[
-            new Expanded(
-              child: new Text(
-                product.name,
-              ),
-            ),
-            IconButton(
-              icon: Icon(
-                Icons.shopping_cart,
-                color: product.isSelected ? Colors.red : Colors.grey,
-              ),
-              onPressed: () {
-                _updateShoppingList(context, items, product);
-              },
-            )
-          ],
-        ),
-      );
-    });
-  }
-
-  _updateShoppingList(context, items, product) {
+  _updateShoppingList(context, product) {
+    //final items = Provider.of<ShoppingItemCollection>(context);
     final products = Provider.of<ProductCollection>(context);
 
     products.selectProduct(product, product.id);
-    items.addRemoveItem(product);
+    // items.addRemoveItem(product);
 
     String message = product.isSelected
         ? 'Added item to shopping list'

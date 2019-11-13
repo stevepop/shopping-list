@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shopping_list/widgets/product_list.dart';
 import 'package:shopping_list/widgets/text_input.dart';
 import 'package:shopping_list/providers/ProductCollection.dart';
@@ -18,7 +19,9 @@ class ProductItemState extends State<ProductItems> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return ChangeNotifierProvider(
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: Text('Products'),
         ),
@@ -30,6 +33,9 @@ class ProductItemState extends State<ProductItems> {
             ),
             TextInput()
           ],
-        ));
+        ),
+      ),
+      builder: (context) => ProductCollection(),
+    );
   }
 }

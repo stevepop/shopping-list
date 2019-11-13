@@ -27,6 +27,7 @@ class TextInputState extends State<TextInput> {
   Widget build(BuildContext context) {
     return Consumer<ProductCollection>(builder: (context, products, child) {
       return Container(
+        padding: EdgeInsets.only(top: 5.0),
         decoration: BoxDecoration(color: Theme.of(context).cardColor),
         margin: EdgeInsets.symmetric(horizontal: 8.0),
         child: Row(

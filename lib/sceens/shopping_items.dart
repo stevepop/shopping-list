@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shopping_list/providers/ShoppingItemCollection.dart';
 import 'package:shopping_list/widgets/shopping_list.dart';
 
 class ShoppingItems extends StatefulWidget {
@@ -11,15 +13,18 @@ class ShoppingItems extends StatefulWidget {
 class ShoppingItemState extends State<ShoppingItems> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Shopping Items'),
+    return ChangeNotifierProvider(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Shopping Items'),
+        ),
+        body: Column(
+          children: <Widget>[
+            ShoppingList(),
+          ],
+        ),
       ),
-      body: Column(
-        children: <Widget>[
-          ShoppingList(),
-        ],
-      ),
+      builder: (context) => ShoppingItemCollection(),
     );
   }
 }

@@ -10,9 +10,11 @@ class ProductCollection extends ChangeNotifier {
 
   Future<List<Product>> fetchProducts() async {
     var result = await _api.getDataCollection();
+
     _products = result.documents
         .map((doc) => Product.fromMap(doc.data, doc.documentID))
         .toList();
+
     return _products;
   }
 

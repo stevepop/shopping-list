@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shopping_list/providers/ShoppingItemCollection.dart';
 import 'package:shopping_list/widgets/product_list.dart';
 import 'package:shopping_list/widgets/text_input.dart';
 import 'package:shopping_list/providers/ProductCollection.dart';
@@ -19,7 +20,15 @@ class ProductItemState extends State<ProductItems> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          builder: (_) => ProductCollection(),
+        ),
+        ChangeNotifierProvider(
+          builder: (_) => ShoppingItemCollection(),
+        ),
+      ],
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
@@ -35,7 +44,6 @@ class ProductItemState extends State<ProductItems> {
           ],
         ),
       ),
-      builder: (context) => ProductCollection(),
     );
   }
 }

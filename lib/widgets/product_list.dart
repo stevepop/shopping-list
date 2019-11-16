@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shopping_list/models/Product.dart';
 import 'package:shopping_list/providers/ProductCollection.dart';
+import 'package:shopping_list/providers/ShoppingItemCollection.dart';
 
 class ProductList extends StatelessWidget {
   @override
@@ -64,11 +65,11 @@ class ProductList extends StatelessWidget {
   }
 
   _updateShoppingList(context, product) {
-    //final items = Provider.of<ShoppingItemCollection>(context);
+    final items = Provider.of<ShoppingItemCollection>(context);
     final products = Provider.of<ProductCollection>(context);
 
     products.selectProduct(product, product.id);
-    // items.addRemoveItem(product);
+    items.addRemoveItem(product);
 
     String message = product.isSelected
         ? 'Added item to shopping list'

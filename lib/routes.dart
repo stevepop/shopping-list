@@ -4,6 +4,7 @@ import 'package:shopping_list/sceens/product_items.dart';
 import 'package:shopping_list/sceens/shopping_items.dart';
 
 generetaRoute({BuildContext context, String name, Object arguments}) {
+  print(name);
   switch (name) {
     case '/':
       return HomeScreen();

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shopping_list/providers/ShoppingItemCollection.dart';
+import 'package:shopping_list/sceens/add_product.dart';
 import 'package:shopping_list/widgets/product_list.dart';
 import 'package:shopping_list/widgets/text_input.dart';
 import 'package:shopping_list/providers/ProductCollection.dart';
@@ -43,7 +44,24 @@ class ProductItemState extends State<ProductItems> {
             TextInput()
           ],
         ),
+        floatingActionButton: _buildFloatingActionButton(),
       ),
+    );
+  }
+
+  FloatingActionButton _buildFloatingActionButton() {
+    return FloatingActionButton(
+      foregroundColor: Colors.white,
+      backgroundColor: Colors.red,
+      child: Icon(Icons.add),
+      onPressed: () {
+        Navigator.push(
+          context,
+          new MaterialPageRoute(
+            builder: (context) => AddProduct(),
+          ),
+        );
+      },
     );
   }
 }

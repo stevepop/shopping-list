@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:shopping_list/models/Product.dart';
 
 class AddProduct extends StatefulWidget {
+  final productCollection;
+
+  AddProduct({Key key, this.productCollection});
+
   @override
   State<AddProduct> createState() => AddProductState();
 }
@@ -45,7 +50,14 @@ class AddProductState extends State<AddProduct> {
   _submit() {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      print(_name);
+
+      Product product = Product();
+      product.name = _name;
+      product.isSelected = false;
+
+      widget.productCollection.addProduct(product);
+
+      Navigator.of(context).pop();
     }
   }
 }

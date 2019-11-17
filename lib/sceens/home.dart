@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:shopping_list/widgets/product_list.dart';
+import 'package:provider/provider.dart';
+import 'package:shopping_list/providers/ProductCollection.dart';
+import 'package:shopping_list/providers/ShoppingItemCollection.dart';
+import 'package:shopping_list/sceens/product_items.dart';
 import '../routes.dart';
-import '../widgets/drawer.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -12,17 +14,7 @@ class HomeScreen extends StatelessWidget {
         primarySwatch: Colors.pink,
       ),
       title: title,
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text(title),
-        ),
-        drawer: AppDrawer(),
-        body: Container(
-          child: Container(
-            child: ProductList(),
-          ),
-        ),
-      ),
+      home: _buildHomeScreen(),
       onGenerateRoute: (RouteSettings settings) {
         return MaterialPageRoute(
           builder: (BuildContext context) => generetaRoute(
@@ -32,6 +24,25 @@ class HomeScreen extends StatelessWidget {
         );
       },
       debugShowCheckedModeBanner: false,
+    );
+  }
+
+  Widget _buildHomeScreen() {
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          builder: (_) => ProductCollection(),
+        ),
+        ChangeNotifierProvider(
+          builder: (_) => ShoppingItemCollection(),
+        ),
+      ],
+      child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: AppBar(
+            title: Text('Products'),
+          ),
+          body: Container(child: ProductItems())),
     );
   }
 }

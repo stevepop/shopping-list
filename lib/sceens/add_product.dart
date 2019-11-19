@@ -36,8 +36,12 @@ class AddProductState extends State<AddProduct> {
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 16.0),
                     child: RaisedButton(
+                      color: Theme.of(context).accentColor,
                       onPressed: _submit,
-                      child: Text('Submit'),
+                      child: Text(
+                        'Submit',
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
                   )
                 ],

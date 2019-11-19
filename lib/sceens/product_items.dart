@@ -16,6 +16,9 @@ class ProductItemState extends State<ProductItems> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Products'),
+      ),
       body: Column(
         children: <Widget>[
           ProductList(),

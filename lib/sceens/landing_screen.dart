@@ -14,9 +14,8 @@ class LandingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Family Shopping App',
-      theme: ThemeData(
-        primarySwatch: Colors.red,
-      ),
+      theme:
+          ThemeData(primarySwatch: Colors.red, accentColor: Colors.lightBlue),
       home: FutureBuilder<FirebaseUser>(
         future: Provider.of<AuthService>(context).getUser(),
         builder: (context, AsyncSnapshot<FirebaseUser> snapshot) {
@@ -34,6 +33,7 @@ class LandingPage extends StatelessWidget {
           }
         },
       ),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
